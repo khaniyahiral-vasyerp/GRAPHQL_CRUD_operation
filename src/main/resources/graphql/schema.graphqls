@@ -1,0 +1,21 @@
+type Mutation {
+  createMovie(movie: MovieInpute): Movie
+  updateMovie(id: Int!, movie: MovieInpute): Movie
+  deltedMovie(id:Int!):Boolean
+}
+type Query {
+  getallMovie: [Movie]
+  getMovieByID(id: Int): Movie
+}
+
+type Movie {
+  id: ID!
+  title: String
+  genres: String
+  year: Int
+}
+input MovieInpute {
+  title: String
+  genres: String
+  year: Int
+}
