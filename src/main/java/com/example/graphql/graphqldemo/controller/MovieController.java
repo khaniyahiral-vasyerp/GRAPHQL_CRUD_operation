@@ -6,20 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.graphql.data.method.annotation.SchemaMapping;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.graphql.graphqldemo.model.Movie;
 import com.example.graphql.graphqldemo.service.MovieService;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Controller
@@ -31,7 +26,7 @@ public class MovieController {
     // create
     // @PostMapping("/create")
     @MutationMapping("createMovie")
-    public Movie createMovie(@Argument MovieInpute movie) {
+    public Movie createMovie(@Argument Movie movie) {
         Movie m = new Movie();
         m.setTitle(movie.getTitle());
         m.setGenres(movie.getGenres());
@@ -41,41 +36,41 @@ public class MovieController {
     }
 
     // getAll
-    // @GetMapping
-    @QueryMapping("getallMovie")
+    @QueryMapping("getAllMovies")
     public List<Movie> getAllMovies() {
         return service.getAllMovies();
     }
 
-    // @GetMapping("/{id}")
-    @QueryMapping(" getMovie")
-    public Movie getMovieById(@Argument int id) {
+    // getMovieById
+    @QueryMapping("getMovieByID")
+    public Movie getMovieByID(@Argument int id) {
         return service.getMovieById(id);
     }
 
-    // delete
-    // @DeleteMapping("/delete/{id}")
-    @MutationMapping("deleteMovie")
-    public void deleteMovie(@PathVariable int id) {
+    // deleteMovie
+    @MutationMapping("deletedMovie")
+    public void deletedMovie(@Argument int id) {
         service.deleteMovie(id);
     }
 
-    // update
-    // @PutMapping("/update/{id}")
+    // UpdateMovie
     @MutationMapping("updateMovie")
-    public void updateMovie(@Argument int id, @Argument MovieInpute moviInpute) {
+    public Movie updateMovie(@Argument int id, @Argument Movie movieInpute) {
         Movie movie = service.getMovieById(id);
         if (movie != null) {
-            movie.setTitle(moviInpute.getTitle());
-            movie.setGenres(moviInpute.getGenres());
-            movie.setYear(moviInpute.getYear());
+            movie.setTitle(movieInpute.getTitle());
+            movie.setGenres(movieInpute.getGenres());
+            movie.setYear(movieInpute.getYear());
             service.updateMovie(movie);
         }
+        return movie;
 
     }
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     class MovieInpute
 
     {
