@@ -1,6 +1,6 @@
 type Mutation {
   createMovie(movie: MovieInpute): Movie
-  updateMovie(id: Int!, movie: MovieInpute): Movie
+  updateMovie(id: Int!, movieInpute: MovieInpute): Movie
   deltedMovie(id:Int!):Boolean
 }
 type Query {
